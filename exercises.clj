@@ -83,3 +83,30 @@
 			:else (cons (first l) (multirember a (rest l)))
 			)
 		))
+
+(def multinsertR
+	(fn [n, o, lat]
+		(cond
+			(empty? lat) ()
+			(eq? (first lat) o) (cons o (cons n (multinsertR n o (rest lat))))
+			:else (cons (first lat) (multinsertR n o (rest lat)))
+			)
+		))
+
+(def multinsertL
+	(fn [n, o, lat]
+		(cond
+			(empty? lat) ()
+			(eq? (first lat) o) (cons n (cons o (multinsertL n o (rest lat))))
+			:else (cons (first lat) (multinsertL n o (rest lat)))
+			)
+		))
+
+(def multisubst
+	(fn [n, o, lat]
+		(cond
+			(empty? lat) ()
+			(eq? (first lat) o) (cons n (multisubst n o (rest lat)))
+			:else (cons (first lat) (multisubst n o (rest lat)))
+			)
+		))
