@@ -93,3 +93,24 @@
      :else (leftmost (first l))
      )
     ))
+
+(def eqlist?
+  (fn [l1, l2]
+    (cond
+      ; if both empty, then we're equal -if only one, clearly not
+      (and (empty? l1) (empty? l2)) true
+      (or (empty? l1) (empty? l2)) false
+      ; if both first elements are atoms, check if the atoms are equal -if so, move to the rest of the list
+      (and (atom? (first l1)) (atom? (first l2)))
+        (cond
+          (eqan? (first l1) (first l2)) (eqlist? (rest l1) (rest l2))
+          :else false
+        )
+      ; but if only one is an atom, then it's false
+      (or (atom? (first l1)) (atom? (first l2))) false
+      ; so, since the first elements are both lists, (since we've exhausted all of the other possibilities)
+      ; compare the two lists to make sure they're equal
+      (eqlist? (first l1) (first l2)) (eqlist? (rest l1) (rest l2))
+      :else false
+     )
+    ))
