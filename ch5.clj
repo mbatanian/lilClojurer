@@ -114,3 +114,21 @@
       :else false
      )
     ))
+
+(def equal?
+  (fn [s, t]
+    (cond
+        (and (atom? s) (atom? t)) (eqan? s t)
+        (or (atom? s) (atom? t)) false
+        :else (eqlist? s t)
+      )
+    ))
+
+(def rember2
+  (fn [s, l]
+    (cond
+      (empty? l) ()
+      (equal? (first l) s) (rest l)
+      :else (cons (first l) (rember s (rest l)))
+      )
+    ))
